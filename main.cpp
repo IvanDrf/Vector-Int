@@ -5,23 +5,24 @@
 //  PushBack
 TEST(VectorTest, PushBack) {
     Vector vec;
-    vec.PushBack(10);
-    vec.PushBack(20);
-    vec.PushBack(30);
+    vec.PushBack(1);
+    vec.PushBack(2);
+    vec.PushBack(3);
 
     EXPECT_EQ(vec.Size(), 3);
-    EXPECT_EQ(vec[0], 10);
-    EXPECT_EQ(vec[1], 20);
-    EXPECT_EQ(vec[2], 30);
+    EXPECT_EQ(vec[0], 1);
+    EXPECT_EQ(vec[1], 2);
+    EXPECT_EQ(vec[2], 3);
 }
 
 //  Insert
 TEST(VectorTest, Insert) {
     Vector vec = {1, 2, 3};
-    vec.Insert(1, 5);
+    const size_t pos{5};
+    vec.Insert(1, pos);
 
     EXPECT_EQ(vec.Size(), 4);
-    EXPECT_EQ(vec[1], 5);
+    EXPECT_EQ(vec[1], pos);
 }
 
 //  DeleteElement
