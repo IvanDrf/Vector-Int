@@ -13,4 +13,6 @@ jobs:
     container: ghcr.io/cpp-linter/clang-tools:18
     steps:
       - uses: actions/checkout@v4
-      - run: clang-tidy *.cpp -- -std=c++20
+      - run: |
+              sudo apt install libgtest-dev
+              clang-tidy *.cpp -- -std=c++20
