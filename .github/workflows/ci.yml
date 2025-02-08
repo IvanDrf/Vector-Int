@@ -14,6 +14,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install Google Test
+        run: |
+          sudo apt install -y libgtest-dev
+          cd /usr/src/googletest
+          sudo cmake .
+          sudo make
+          sudo cp lib/libgtest.a /usr/lib
+          sudo cp lib/libgmock.a /usr/lib
+
       - name: Install clang-tidy and clang-format
         run: |
           sudo apt update
@@ -21,17 +30,10 @@ jobs:
 
       - name: Run tests
         run: |
-          sudo apt install -y libgtest-dev
-          cd /usr/src/googletest
-          sudo cmake .
-          sudo make
-          sudo cp libgtest*.a /usr/lib
-
           cd $GITHUB_WORKSPACE
           mkdir build && cd build
           cmake ..
           make
-
 
           ./VectorTest
 
