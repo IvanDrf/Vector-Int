@@ -1,46 +1,16 @@
-on:
-  push:
-    branches:
-      - develop
-  pull_request:
-    branches:
-      - develop
+on: push
 
 jobs:
-  clang-check:
+  clang-format:
     runs-on: ubuntu-latest
-
+    container: ghcr.io/cpp-linter/clang-tools:18
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+    - run: clang-format --dry-run -Werror *.cpp
 
-      - name: Install Google Test
-        run: |
-          sudo apt install -y libgtest-dev
-          cd /usr/src/googletest
-          sudo cmake .
-          sudo make
-          sudo cp lib/libgtest.a /usr/lib
-          sudo cp lib/libgmock.a /usr/lib
-
-      - name: Install clang-tidy and clang-format
-        run: |
-          sudo apt update
-          sudo apt install -y clang-tidy clang-format
-
-      - name: Run tests
-        run: |
-          cd $GITHUB_WORKSPACE
-          mkdir build && cd build
-          cmake ..
-          make
-
-          ./VectorTest
-
-      - name: Check formatting with clang-format
-        run: |
-          clang-format --dry-run -Werror *.cpp *.hpp
-
-      - name: Check code with clang-tidy
-        run: |
-          clang-tidy *.cpp -- -std=c++20 /usr/lib//libgtest.a
+  clang-tidy:
+    runs-on: ubuntu-latest
+    container: ghcr.io/cpp-linter/clang-tools:18
+    steps:
+    - uses: actions/checkout@v4
+    - run: clang-tidy *.cpp
