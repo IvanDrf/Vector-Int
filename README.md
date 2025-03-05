@@ -3,7 +3,7 @@ Realization of a self-expanding array with some **std::vector** methods
 
 ![c++vector](https://github.com/user-attachments/assets/72586135-6ce4-4e0c-b3c8-acc74467bf46)
 
-># Methods
+# Methods
 >• **Clear** - clears the array and makes it empty
 >
 >• **DeleteAll** - deletes all some numbers
